@@ -1,7 +1,7 @@
 """Functions for reading the pronouncing dictionary and the poetry forms files
 """
 from typing import TextIO
-
+import re
 from poetry_constants import (
     # CLEAN_POEM, WORD_PHONEMES, LINE_PRONUNCIATION, POEM_PRONUNCIATION,
     PRONOUNCING_DICTIONARY, POETRY_FORM, POETRY_FORMS)
@@ -49,7 +49,14 @@ def read_and_trim_whitespace(poem_file: TextIO) -> str:
      >>> read_and_trim_whitespace(poem_file)
      'Is this mic on?\\n Get off my lawn.'
      """
-    pass
+    result = ''
+    result_lines = poem_file.readlines()
+    for line in result_lines:
+        if line != '\n':
+            result += line
+    result = result.strip()
+    result = result.replace('\n', '\\n')
+    return result
 
 
 def read_pronouncing_dictionary(
@@ -62,8 +69,20 @@ def read_pronouncing_dictionary(
     >>> result == EXPECTED_DICTIONARY
     True
     """
-    pass
+    Dic_result = {}
+    result_lines = pronunciation_file.readlines()
+    for line in result_lines:
+        if(line.startswith(";")):
+            result_lines.remove(line)
+    
 
+    for line in result_lines:
+         line_word = re.split(' +', line.strip())
+         key = line_word[0]
+         del(line_word[0])
+         Dic_result[key] = line_word
+
+    return Dic_result
 
 def read_poetry_form_descriptions(
         poetry_forms_file: TextIO) -> POETRY_FORMS:
@@ -75,4 +94,26 @@ def read_poetry_form_descriptions(
     >>> result == EXPECTED_POETRY_FORMS
     True
     """
-    pass
+    value = ()
+    list1 = []
+    list2 = []
+    Dic_result = {}
+    key = ''
+    for lines in form_file.readlines():
+        if lines == '\n':
+            value = (list1, list2)
+            Dir_result[key] = value
+            list1 = []
+            list2 = []
+
+        if lines[0].isalpha():
+            key = lines.strip()
+
+        if lines[0].isdigit():
+            num_char = re.split(' +', lines.strip())
+            list1.append(int(num_char[0]))
+            list2.append(num_char[1])
+
+        value = (list1, list2)
+        Dir_result[key] = value
+        return Dir_result

@@ -96,7 +96,7 @@ def phonemes_to_str(poem_pronunciation: POEM_PRONUNCIATION) -> str:
             if word != lines[-1]:
                 str_result += ' | '
         if lines != a[-1]:
-            str_result += '\\\\n'
+            str_result += '\\n'
     
     return str_result
     pass
