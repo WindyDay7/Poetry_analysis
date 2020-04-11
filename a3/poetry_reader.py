@@ -55,7 +55,7 @@ def read_and_trim_whitespace(poem_file: TextIO) -> str:
         if line != '\n':
             result += line
     result = result.strip()
-    result = result.replace('\n', '\\n')
+    # result = result.replace('\n', '\\n')
     return result
 
 
@@ -84,8 +84,7 @@ def read_pronouncing_dictionary(
 
     return Dic_result
 
-def read_poetry_form_descriptions(
-        poetry_forms_file: TextIO) -> POETRY_FORMS:
+def read_poetry_form_descriptions(poetry_forms_file: TextIO) -> POETRY_FORMS:
     """Return a dictionary of poetry form name to poetry pattern for the poetry
     forms in poetry_forms_file.
 
@@ -99,10 +98,10 @@ def read_poetry_form_descriptions(
     list2 = []
     Dic_result = {}
     key = ''
-    for lines in form_file.readlines():
+    for lines in poetry_forms_file.readlines():
         if lines == '\n':
             value = (list1, list2)
-            Dir_result[key] = value
+            Dic_result[key] = value
             list1 = []
             list2 = []
 
@@ -114,6 +113,6 @@ def read_poetry_form_descriptions(
             list1.append(int(num_char[0]))
             list2.append(num_char[1])
 
-        value = (list1, list2)
-        Dir_result[key] = value
-        return Dir_result
+    value = (list1, list2)
+    Dic_result[key] = value
+    return Dic_result

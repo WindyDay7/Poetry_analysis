@@ -29,6 +29,14 @@ def clean_word(s: str) -> str:
     result = s.upper().strip(punctuation)
     return result
 
+def clean_lines(sentence: str) -> List[str]:
+    temp_result = []
+    words = re.split(' ', sentence)
+    for word in words:
+        temp_word = clean_word(word)
+        if temp_word != '':
+            temp_result.append(temp_word)
+    return  temp_result
 
 
 def clean_poem(raw_poem: str) -> CLEAN_POEM:
@@ -45,16 +53,10 @@ def clean_poem(raw_poem: str) -> CLEAN_POEM:
     result = []
     temp_result = []
     for sentences in temp:
-        temp_result = []
-        words = re.split(' ', sentences)
-        for word in words:
-            temp_word = clean_word(word)
-            if temp_word != '':
-                temp_result.append(temp_word)
+        temp_result = clean_lines(sentences)
         result.append(temp_result)
 
     return result
-    pass
 
 
 def extract_phonemes(
@@ -75,7 +77,6 @@ def extract_phonemes(
         result.append(temp_result)
 
     return result
-    pass
 
 
 def phonemes_to_str(poem_pronunciation: POEM_PRONUNCIATION) -> str:
@@ -95,8 +96,8 @@ def phonemes_to_str(poem_pronunciation: POEM_PRONUNCIATION) -> str:
                     str_result += ' '
             if word != lines[-1]:
                 str_result += ' | '
-        if lines != a[-1]:
-            str_result += '\\n'
+        if lines != poem_pronunciation[-1]:
+            str_result += '\n'
     
     return str_result
     pass

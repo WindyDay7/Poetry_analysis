@@ -1,0 +1,10 @@
+[
+  "a3_checker.py::CheckTest::test_00_clean_lines",
+  "a3_checker.py::CheckTest::test_01_extract_phonemes",
+  "a3_checker.py::CheckTest::test_02_phonemes_to_str",
+  "a3_checker.py::CheckTest::test_03_get_rhyme_scheme",
+  "a3_checker.py::CheckTest::test_04_get_num_syllables",
+  "a3_checker.py::CheckTest::test_05_read_and_trim_whitespace",
+  "a3_checker.py::CheckTest::test_06_read_pronouncing_dictionary",
+  "a3_checker.py::CheckTest::test_07_read_poetry_form_descriptions"
+]
